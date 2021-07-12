@@ -1,12 +1,12 @@
 // @TODO: YOUR CODE HERE!
-var svgWidth = 700;
-var svgHeight = 400;
+var svgWidth = 960;
+var svgHeight = 500;
 
 var margin = {
-  top: 30,
-  right: 20,
+  top: 20,
+  right: 40,
   bottom: 80,
-  left: 80
+  left: 100
 };
 
 var width = svgWidth - margin.left - margin.right;
@@ -61,6 +61,16 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis) {
 
   return circlesGroup;
 }
+
+// function used for updating circle text 
+// function renderXText(circlesGroup, newXScale, chosenXaxis) {
+
+//   circlesGroup.transition()
+//     .duration(1000)
+//     .attr("dx", d => newXScale(d[chosenXAxis]));
+
+//   return circlesGroup;
+// }
 
 // function used for updating circles group with new tooltip
 function updateToolTip(chosenXAxis, circlesGroup) {
@@ -147,9 +157,17 @@ d3.csv("data.csv").then(function(data, err) {
     .text(function(d) {return d.abbr})
     // .attr("transform", `translate(${margin.left}, ${margin.top})`)
     .attr("dx", d => xLinearScale(d[chosenXAxis]))
-    .attr("dy", d => yLinearScale(d.income))
+    .attr("dy", d => yLinearScale(d.income) + 4)
     .attr("font-size", "10px")
     .classed("stateText", true);
+
+    // var stateAbbr = circlesGroup.append("text")
+    //   .data(data)
+    //   .enter()
+    //   .text(function(d) {return d.abbr})
+    //   .attr("dx", d => xLinearScale(d[chosenXAxis]))
+    //   .attr("dy", d => yLinearScale(d.income) + 4)
+    //   .classed("stateText", true);
 
 
   // Create group for two x-axis labels
@@ -204,11 +222,11 @@ d3.csv("data.csv").then(function(data, err) {
         // updates circles with new x values
         circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
 
+        // update state abbreviations with new info
+        // stateAbbr = renderXtext(stateAbbr, xLinearScale, chosenXAxis);
+
         // updates tooltips with new info
         circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
-
-        // update state abbreviations with new info
-        // chartGroup = updateToolTip(chosenXAxis, circlesGroup);
 
         // changes classes to change bold text
         if (chosenXAxis === "obesity") {
