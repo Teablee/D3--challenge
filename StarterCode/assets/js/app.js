@@ -62,6 +62,7 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis) {
   return circlesGroup;
 }
 
+// I couldn't get the circle text to update with the change in x-axis
 // function used for updating circle text 
 // function renderXText(circlesGroup, newXScale, chosenXaxis) {
 
@@ -160,25 +161,7 @@ d3.csv("data.csv").then(function(data, err) {
     .attr("dy", d => yLinearScale(d.income) + 4)
     .attr("font-size", "10px")
     .classed("stateText", true);
-    // chartGroup.selectAll("text")
-    // .data(data)
-    // .enter()
-    // .append("text")
-    // .merge(circlesGroup)
-    // .text(function(d) {return d.abbr})
-    // // .attr("transform", `translate(${margin.left}, ${margin.top})`)
-    // .attr("dx", d => xLinearScale(d[chosenXAxis]))
-    // .attr("dy", d => yLinearScale(d.income) + 4)
-    // .attr("font-size", "10px")
-    // .classed("stateText", true);
-
-    // var stateAbbr = circlesGroup.append("text")
-    //   .data(data)
-    //   .enter()
-    //   .text(function(d) {return d.abbr})
-    //   .attr("dx", d => xLinearScale(d[chosenXAxis]))
-    //   .attr("dy", d => yLinearScale(d.income) + 4)
-    //   .classed("stateText", true);
+    
 
 
   // Create group for two x-axis labels
@@ -233,8 +216,8 @@ d3.csv("data.csv").then(function(data, err) {
         // updates circles with new x values
         circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
 
-        // update state abbreviations with new info
-        // stateAbbr = renderXtext(stateAbbr, xLinearScale, chosenXAxis);
+        // update state abbreviations with new info  // This didn't work for updating text in circles
+        //renderXtext(stateAbbr, xLinearScale, chosenXAxis);
 
         // updates tooltips with new info
         circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
