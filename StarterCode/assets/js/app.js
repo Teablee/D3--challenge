@@ -68,7 +68,7 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis) {
 //   circlesGroup.transition()
 //     .duration(1000)
 //     .attr("dx", d => newXScale(d[chosenXAxis]));
-
+      
 //   return circlesGroup;
 // }
 
@@ -149,17 +149,28 @@ d3.csv("data.csv").then(function(data, err) {
     .classed("stateCircle", true);
  
   // Add state abbreviation labels to circles
-    chartGroup.selectAll("text")
+  svg.append("g")
+    .selectAll("circle")
     .data(data)
     .enter()
     .append("text")
-    .merge(circlesGroup)
     .text(function(d) {return d.abbr})
-    // .attr("transform", `translate(${margin.left}, ${margin.top})`)
+    .attr("transform", `translate(${margin.left}, ${margin.top})`)
     .attr("dx", d => xLinearScale(d[chosenXAxis]))
     .attr("dy", d => yLinearScale(d.income) + 4)
     .attr("font-size", "10px")
     .classed("stateText", true);
+    // chartGroup.selectAll("text")
+    // .data(data)
+    // .enter()
+    // .append("text")
+    // .merge(circlesGroup)
+    // .text(function(d) {return d.abbr})
+    // // .attr("transform", `translate(${margin.left}, ${margin.top})`)
+    // .attr("dx", d => xLinearScale(d[chosenXAxis]))
+    // .attr("dy", d => yLinearScale(d.income) + 4)
+    // .attr("font-size", "10px")
+    // .classed("stateText", true);
 
     // var stateAbbr = circlesGroup.append("text")
     //   .data(data)
